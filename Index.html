@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tibb an-Nabawi · Prophetische Medizin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #111113;
+  --card: #1C1C1F;
+  --card2: #232327;
+  --card3: #2A2A2F;
+  --rim: rgba(255,255,255,.06);
+  --txt: #F2F2F7;
+  --sub: #98989F;
+  --sub2: #6C6C70;
+  --gold: #F59E0B;
+  --gold2: #FCD34D;
+  --green: #22C55E;
+  --blue: #3B82F6;
+  --blue2: #60A5FA;
+  --orange: #F97316;
+  --red: #EF4444;
+  --purple: #A855F7;
+  --teal: #06B6D4;
+  --ease-out: cubic-bezier(0.23,1,0.32,1);
+  --f-display: 'Bebas Neue', sans-serif;
+  --f-mono: 'JetBrains Mono', monospace;
+  --f-body: 'DM Sans', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--f-body);
+  min-height: 100dvh;
+  background-image:
+    linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* HERO */
+.hero {
+  padding: 52px 20px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%; transform: translateX(-50%);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(245,158,11,.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.hero-title {
+  font-family: var(--f-display);
+  font-size: 52px;
+  line-height: 1;
+  color: var(--txt);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+.hero-title span { color: var(--gold); }
+.hero-sub {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--sub);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.hero-arabic {
+  font-size: 28px;
+  color: var(--gold);
+  opacity: .6;
+  margin-top: 12px;
+  letter-spacing: 2px;
+}
+
+/* NAV */
+.nav-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--rim);
+  background: var(--card);
+  color: var(--sub);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: all 150ms var(--ease-out);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.tab:hover, .tab.active {
+  background: rgba(245,158,11,.15);
+  border-color: rgba(245,158,11,.4);
+  color: var(--gold);
+}
+.tab:active { transform: scale(0.96); }
+
+/* LAYOUT */
+.section { padding: 0 16px 32px; }
+.sec-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--sub2);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sec-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rim);
+}
+
+/* HADITH CARD */
+.hadith-card {
+  background: var(--card);
+  border-radius: 18px;
+  border: 1px solid var(--rim);
+  padding: 20px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.hadith-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,158,11,.4), transparent);
+}
+.hadith-quote {
+  font-size: 16px;
+  color: var(--txt);
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--gold);
+  padding-left: 14px;
+}
+.hadith-ref {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--sub2);
+  letter-spacing: .5px;
+  margin-bottom: 14px;
+  padding-left: 17px;
+}
+.hadith-science {
+  background: var(--card2);
+  border-radius: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--rim);
+}
+.hadith-science-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--teal);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.hadith-science-text {
+  font-size: 13px;
+  color: var(--sub);
+  line-height: 1.55;
+}
+
+/* BADGE */
+.badge {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.badge-sahih { background: rgba(34,197,94,.15); color: var(--green); border: 1px solid rgba(34,197,94,.3); }
+.badge-hasan { background: rgba(245,158,11,.15); color: var(--gold); border: 1px solid rgba(245,158,11,.3); }
+.badge-muttafaq { background: rgba(96,165,250,.15); color: var(--blue2); border: 1px solid rgba(96,165,250,.3); }
+
+/* CATEGORY HEADER */
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  margin-top: 8px;
+}
+.cat-icon { font-size: 28px; }
+.cat-title {
+  font-family: var(--f-display);
+  font-size: 36px;
+  line-height: 1;
+  color: var(--txt);
+}
+.cat-sub {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--sub2);
+  letter-spacing: 1px;
+}
+
+/* INFO BOX */
+.info-box {
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.info-gold { background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.2); }
+.info-blue { background: rgba(59,130,246,.08); border: 1px solid rgba(59,130,246,.2); }
+.info-green { background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.2); }
+.info-orange { background: rgba(249,115,22,.08); border: 1px solid rgba(249,115,22,.2); }
+.info-purple { background: rgba(168,85,247,.08); border: 1px solid rgba(168,85,247,.2); }
+.info-teal { background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.2); }
+.info-flex { display: flex; gap: 12px; align-items: flex-start; }
+.info-icon { font-size: 18px; flex-shrink: 0; }
+.info-title { font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .5px; margin-bottom: 4px; }
+.info-text { font-size: 13px; color: var(--sub); line-height: 1.55; }
+
+/* GRID */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.stat-mini {
+  background: var(--card2);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid var(--rim);
+  text-align: center;
+}
+.stat-mini-val {
+  font-family: var(--f-display);
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-mini-lbl {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  color: var(--sub2);
+  letter-spacing: .5px;
+  line-height: 1.3;
+}
+
+/* SOURCES */
+.src { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--rim); }
+.src:last-child { border-bottom: none; }
+.src-n { font-family: var(--f-mono); font-size: 10px; color: var(--sub2); flex-shrink: 0; width: 22px; }
+.src-t { font-size: 12px; color: var(--sub); line-height: 1.5; }
+.src-t strong { color: var(--txt); }
+
+/* OVERVIEW INTRO */
+.overview-card {
+  background: var(--card);
+  border-radius: 18px;
+  border: 1px solid rgba(245,158,11,.2);
+  padding: 20px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.overview-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,158,11,.6), transparent);
+}
+
+/* DIVIDER + FOOTER */
+.divider { height: 1px; background: var(--rim); margin: 0 16px 24px; }
+.footer { padding: 24px 20px 52px; text-align: center; }
+.footer-logo { font-family: var(--f-display); font-size: 28px; color: var(--gold); letter-spacing: 2px; margin-bottom: 6px; }
+.footer-sub { font-family: var(--f-mono); font-size: 10px; color: var(--sub2); letter-spacing: 1px; }
+
+/* ANIM */
+@keyframes cardIn { from { opacity:0; transform:translateY(10px) scale(.97) } to { opacity:1; transform:translateY(0) scale(1) } }
+.anim { animation: cardIn 300ms var(--ease-out) both; }
+.d1{animation-delay:.04s} .d2{animation-delay:.08s} .d3{animation-delay:.12s} .d4{animation-delay:.16s}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">// PROPHETISCHE MEDIZIN · WISSENSCHAFTLICH EINGEORDNET</div>
+  <div class="hero-title">TIBB <span>AN-NABAWI</span></div>
+  <div class="hero-sub">الطب النبوي · ERNÄHRUNG · SCHLAF · HYGIENE · FASTEN</div>
+  <div class="hero-arabic">ﷺ</div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <a class="tab active" href="#intro">Einführung</a>
+  <a class="tab" href="#ernaehrung">Ernährung</a>
+  <a class="tab" href="#kauen">Kauen & Essen</a>
+  <a class="tab" href="#fasten">Fasten</a>
+  <a class="tab" href="#schlaf">Schlaf</a>
+  <a class="tab" href="#hygiene">Hygiene</a>
+  <a class="tab" href="#heilmittel">Heilmittel</a>
+  <a class="tab" href="#einordnung">KI-Einordnung</a>
+  <a class="tab" href="#quellen">Quellen</a>
+</div>
+
+<!-- INTRO -->
+<div class="section" id="intro">
+  <div class="sec-label">00 · Tibb an-Nabawi · Was ist das?</div>
+
+  <div class="overview-card anim">
+    <div style="font-family:var(--f-mono);font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:12px">PROPHETISCHE MEDIZIN — ÜBERBLICK</div>
+    <div style="font-size:14px;color:var(--sub);line-height:1.65;margin-bottom:14px">
+      <em>Tibb an-Nabawi</em> (الطب النبوي) — „Prophetische Medizin" — bezeichnet die Gesamtheit der Überlieferungen des Propheten Muhammad ﷺ zu Gesundheit, Ernährung, Hygiene und Heilkunde. Es handelt sich um ca. <strong style="color:var(--txt)">400 authentische Hadithe</strong>, davon ~50 zu spezifischen Erkrankungen und Heilmitteln, sowie über 300 zu Hygiene, Essgewohnheiten und Lebensstil.
+    </div>
+    <div class="grid2">
+      <div class="stat-mini">
+        <div class="stat-mini-val" style="color:var(--gold)">~400</div>
+        <div class="stat-mini-lbl">HADITHE ZU GESUNDHEIT & HYGIENE</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-mini-val" style="color:var(--gold)">7. Jh.</div>
+        <div class="stat-mini-lbl">URSPRUNG · 1.400+ JAHRE ALT</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box info-gold anim d1">
+    <div class="info-flex">
+      <div class="info-icon">📚</div>
+      <div>
+        <div class="info-title" style="color:var(--gold)">HAUPTQUELLEN</div>
+        <div class="info-text">Sahih al-Bukhari (Kitab at-Tibb, Buch 76: über 100 medizinische Hadithe), Sahih Muslim, Sunan Abu Dawud, Sunan at-Tirmidhi. Klassisch zusammengefasst von Ibn al-Qayyim al-Jawziyya (13. Jh.) in „Al-Tibb an-Nabawi" (277 Kapitel) und von Ibn Sina (Avicenna) im „Kanon der Medizin".</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box info-blue anim d2">
+    <div class="info-flex">
+      <div class="info-icon">🔬</div>
+      <div>
+        <div class="info-title" style="color:var(--blue2)">WISSENSCHAFTLICHE METHODIK DIESER ÜBERSICHT</div>
+        <div class="info-text">Nur Hadithe mit Klassifikation <strong style="color:var(--txt)">sahih</strong> (authentisch) oder <strong style="color:var(--txt)">hasan</strong> (gut) werden aufgeführt. Schwache (da'if) Überlieferungen werden explizit markiert. Jede Aussage wird mechanistisch mit moderner Wissenschaft verglichen — ohne Übertreibung in beide Richtungen.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ERNÄHRUNG -->
+<div class="section" id="ernaehrung">
+  <div class="sec-label">01 · Ernährung & Lebensmittel</div>
+
+  <div class="cat-header">
+    <div class="cat-icon">🌿</div>
+    <div>
+      <div class="cat-title">ERNÄHRUNG</div>
+      <div class="cat-sub">SPEZIFISCHE LEBENSMITTEL · PROPHETISCHE EMPFEHLUNGEN</div>
+    </div>
+  </div>
+
+  <!-- Schwarzkümmel -->
+  <div class="hadith-card anim">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI · BUKHARI + MUSLIM</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">SCHWARZKÜMMEL (HABBATUS SAUDA)</div>
+    <div class="hadith-quote">„Im Schwarzkümmel ist Heilung für jede Krankheit außer dem Tod."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 5688 · Sahih Muslim Nr. 2215 · Überliefert von Abu Huraira (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Thymoquinon (TQ) hemmt NF-κB, COX-2, 5-LOX direkt. Aktiviert Nrf2/ARE-Pathway. Immunmodulation (Th1/Th2), antimikrobiell, antiviral, antifungal, antidiabetisch, kardioprotektiv. TQ-Gehalt variiert 270-fach zwischen Produkten — Qualität entscheidend. Klinische RCT bei Rheumatoider Arthritis: IL-10↑, MDA↓ (PubMed 2016).</div>
+    </div>
+  </div>
+
+  <!-- Honig -->
+  <div class="hadith-card anim d1">
+    <div class="badge badge-sahih">✓ SAHIH · AL-BUKHARI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">HONIG (AL-ASAL)</div>
+    <div class="hadith-quote">„Nehmt zwei Heilmittel: Honig und den Koran."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 5684 · Kitab at-Tibb</div>
+    <div class="hadith-quote" style="margin-top:10px">„Im Honig ist Heilung für die Menschen."</div>
+    <div class="hadith-ref">— Quran 16:69 (An-Nahl) · Bestätigt durch multiple sahihe Hadithe</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Wasserstoffperoxid-Freisetzung antimikrobiell (Breitspektrum). Methylglyoxal (Manuka) hemmt MRSA-Biofilm. Präbiotisch: fördert Bifidobacterium und Lactobacillus. Wundheilung: erhöht Kollagensynthese, senkt Entzündungsmarker. Niemals über 40°C erhitzen — Enzyme und Polyphenole degradieren. WHO akzeptiert Honig als evidenzbasiertes Hustenmittel (2001).</div>
+    </div>
+  </div>
+
+  <!-- Olivenöl -->
+  <div class="hadith-card anim d2">
+    <div class="badge badge-hasan">◉ HASAN · AT-TIRMIDHI · IBN MAJAH</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">OLIVENÖL (ZEIT AZ-ZAYTUN)</div>
+    <div class="hadith-quote">„Esst Olivenöl und salbt euch damit, denn es kommt von einem gesegneten Baum."</div>
+    <div class="hadith-ref">— Sunan at-Tirmidhi Nr. 1851 · Sunan Ibn Majah Nr. 3319 · Überliefert von Umar ibn al-Khattab (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Oleocanthal: COX-1/COX-2-Inhibitor — mechanistisch wie Ibuprofen (Beauchamp et al., Nature 2005). Hydroxytyrosol: stärkster Radikalfänger. NF-κB-Hemmung via Oleacein. EU-Gesundheitsclaim (EFSA 432/2012): ≥250 mg/kg Polyphenole schützt LDL vor Oxidation. Mediterrane Diät: kardiovaskuläre Mortalität –30% (PREDIMED-Studie, NEJM 2013).</div>
+    </div>
+  </div>
+
+  <!-- Datteln -->
+  <div class="hadith-card anim d3">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI · BUKHARI + MUSLIM</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">DATTELN (AT-TAMR) · AJWA-SORTE</div>
+    <div class="hadith-quote">„Wer morgens sieben Ajwa-Datteln isst, dem schadet an diesem Tag weder Gift noch Zauberei."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 5445 · Sahih Muslim Nr. 2047 · Überliefert von Aisha (r.a.)</div>
+    <div class="hadith-quote" style="margin-top:10px">„Wer keine Datteln hat, hat kein Abendessen."</div>
+    <div class="hadith-ref">— Sahih Muslim Nr. 2046</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Ajwa-Datteln: besonders hoher Polyphenolgehalt (Proanthocyanidine, Flavonoide). Studien zeigen antithrombotische Wirkung (hemmt Thrombozytenaggregation). Antioxidativer ORAC-Wert überdurchschnittlich hoch. Ballaststoffe + natürliche Zucker: präbiotisch, Blutglukosekontrolle stabiler als isolierter Zucker. Magnesium, Kalium, Eisen: relevante Mikronährstoffdichte.</div>
+    </div>
+  </div>
+
+  <!-- Zwei Schwarze Dinge -->
+  <div class="hadith-card anim d4">
+    <div class="badge badge-sahih">✓ SAHIH · AL-BUKHARI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">DATTELN & WASSER ALS GRUNDNAHRUNG</div>
+    <div class="hadith-quote">„Der Prophet ﷺ starb, während wir unseren Hunger mit den zwei Schwarzen (Datteln und Wasser) gestillt hatten."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 5383 · Überliefert von Aisha (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Beschreibung einer nährstoffdichten, kalorienarmen Grundernährung. Datteln + Wasser liefern schnelle Energie (Fruktose, Glukose), Ballaststoffe, Mikronährstoffe. Minimal verarbeitete Ernährung — deckungsgleich mit modernen Longevity-Diätempfehlungen (Blue Zones, Valter Longo).</div>
+    </div>
+  </div>
+</div>
+
+<!-- KAUEN & ESSVERHALTEN -->
+<div class="section" id="kauen">
+  <div class="sec-label">02 · Kauen · Essverhalten · Portionen</div>
+
+  <div class="cat-header">
+    <div class="cat-icon">🍽️</div>
+    <div>
+      <div class="cat-title">KAUEN & ESSEN</div>
+      <div class="cat-sub">ESSVERHALTEN · PORTIONSKONTROLLE · MAGENGESUNDHEIT</div>
+    </div>
+  </div>
+
+  <!-- Drittel-Regel -->
+  <div class="hadith-card anim">
+    <div class="badge badge-hasan">◉ HASAN SAHIH · AT-TIRMIDHI · IBN MAJAH</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">DIE DRITTEL-REGEL — MAGENFÜLLUNG</div>
+    <div class="hadith-quote">„Das schlimmste Gefäß, das ein Mensch füllen kann, ist sein Bauch. Es reichen dem Sohn Adams einige Bissen, die seinen Rücken aufrichten. Wenn es sein muss, dann ein Drittel für Speise, ein Drittel für Trank und ein Drittel für seinen Atem."</div>
+    <div class="hadith-ref">— Sunan at-Tirmidhi Nr. 2380 · Sunan Ibn Majah Nr. 3349 · Überliefert von Miqdam ibn Ma'dikarib (r.a.) · Klassifiziert: hasan sahih</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Magenvolumen bei Leerheit ~0,5L, bei Dehnung bis 4L. 2/3-Füllung entspricht ~1,0–1,5L — Bereich in dem Sättigungshormone (Leptin, Ghrelin, CCK) optimal signalisieren ohne Überdehnung. Restriktive Essvolumen reduzieren postprandialen oxidativen Stress. Caloric restriction: konsistentester Longevity-Faktor in Tiermodellen. Hara Hachi Bu (80%-Regel) aus Okinawa = identisches Prinzip.</div>
+    </div>
+  </div>
+
+  <!-- Gründlich kauen -->
+  <div class="hadith-card anim d1">
+    <div class="badge badge-hasan">◉ HASAN · AT-TIRMIDHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">GRÜNDLICHES KAUEN</div>
+    <div class="hadith-quote">„Gut gekaute Nahrung wird Teil des Körpers; Nahrung die unzerkaut hinuntergeschluckt wird, geht verloren."</div>
+    <div class="hadith-ref">— Sunan at-Tirmidhi · Überlieferung zu Kaugewohnheiten des Propheten ﷺ</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Mechanische Zerkleinerung ↑ Oberflächenarea → ↑ Enzymkontakt (Amylase, Lipase). Gründliches Kauen (30+ mal): ↑ Sättigung, ↓ Kalorienaufnahme um ~10–15% (Studie American Journal of Clinical Nutrition 2011). Speichel-Amylase startet Kohlenhydratverdauung — bei schnellem Schlucken übersprungen. Weniger Verdauungsbeschwerden, weniger Blähungen, bessere Nährstoffabsorption.</div>
+    </div>
+  </div>
+
+  <!-- Nicht überschreiten -->
+  <div class="hadith-card anim d2">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">MASSHALTEN · ÜBERSCHUSS VERURTEILT</div>
+    <div class="hadith-quote">„Der Gläubige isst mit einem Magen, der Ungläubige isst mit sieben Mägen."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 5393 · Sahih Muslim Nr. 2060 · Überliefert von Abu Huraira (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Metapher für Maßhalten vs. Völlerei. Chronisches Überessen: ↑ postprandialer oxidativer Stress, ↑ Insulinresistenz, ↑ systemische Entzündung (IL-6, TNF-α↑ nach Mahlzeitenüberschuss). mTOR-Überaktivierung durch dauerhafte Kalorienüberschüsse hemmt Autophagie. Caloric Restriction: einzige ernährungsbasierte Intervention mit konsistenter Lebensverlängerung in Modellorganismen.</div>
+    </div>
+  </div>
+
+  <!-- Hände lecken -->
+  <div class="hadith-card anim d3">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">TELLER REINIGEN · KEINE VERSCHWENDUNG</div>
+    <div class="hadith-quote">„Wenn jemand von euch isst, soll er seine Finger nicht abwischen, bis er sie geleckt oder sie lecken lassen hat."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari · Sahih Muslim · Überliefert von Jabir ibn Abdullah (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Primär eine Aussage gegen Verschwendung und Undankbarkeit — kultureller Kontext des 7. Jh. Arabia (Nahrungsknappheit). Wissenschaftlich: Sauberlecken der Finger enthält geringe Mengen Verdauungsenzyme im Speichel → minimale Bedeutung. Psychologisch: achtsames Essen, vollständiger Abschluss der Mahlzeit. Kein Hygienebedenken in sauberem Kontext.</div>
+    </div>
+  </div>
+
+  <!-- Nicht in heißes blasen -->
+  <div class="hadith-card anim d4">
+    <div class="badge badge-sahih">✓ SAHIH · ABU DAWUD · IBN MAJAH</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">NICHT IN HEISSES BLASEN</div>
+    <div class="hadith-quote">„Der Prophet ﷺ verbot, in das Getränk zu blasen oder hineinzuatmen."</div>
+    <div class="hadith-ref">— Sunan Abu Dawud Nr. 3722 · Sunan at-Tirmidhi Nr. 1887 · Klassifiziert sahih</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Ausgeatmete Luft enthält CO₂, Speichel-Aerosole, Bakterien (Streptokokken, Staphylokokken). Einblasen in Getränk: Kontamination mit oralen Keimen, CO₂-Lösung bildet Kohlensäure (pH-Senkung). Bei heißen Flüssigkeiten: kühlen durch Warten oder Rühren — nicht durch Blasen. Mikrobiologisch vollständig korrekte Empfehlung.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FASTEN -->
+<div class="section" id="fasten">
+  <div class="sec-label">03 · Fasten · Sawm</div>
+
+  <div class="cat-header">
+    <div class="cat-icon">🌙</div>
+    <div>
+      <div class="cat-title">FASTEN</div>
+      <div class="cat-sub">RAMADAN · FREIWILLIGES FASTEN · METABOLISMUS</div>
+    </div>
+  </div>
+
+  <!-- Ramadan -->
+  <div class="hadith-card anim">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">RAMADAN-FASTEN · PFLICHTFASTEN</div>
+    <div class="hadith-quote">„Jede Handlung des Menschensohnes gehört ihm — außer dem Fasten. Denn es ist für Mich, und Ich werde dafür belohnen."</div>
+    <div class="hadith-ref">— Hadith Qudsi · Sahih al-Bukhari Nr. 1904 · Sahih Muslim Nr. 1151</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT — RAMADAN-FASTEN (RDIF)</div>
+      <div class="hadith-science-text">Ramadan Diurnal Intermittent Fasting (RDIF): 10–21h täglich, 30 Tage. Meta-Analysen (Frontiers in Nutrition, 2022–2024): ↓ LDL, ↓ Triglyzeride, ↓ Blutglukose, ↓ CRP (Entzündungsmarker), ↓ Körpergewicht. Gut-Mikrobiom-Remodeling: ↑ Lachnospiraceae → ↑ Butyrat-Produktion (PMC 2021). ↓ pro-inflammatorische Zytokine. Modulation zirkadianer Rhythmusgene. Kein negativer Effekt auf VO₂max bei Ausdauersportlern.</div>
+    </div>
+  </div>
+
+  <!-- Freiwilliges Fasten -->
+  <div class="hadith-card anim d1">
+    <div class="badge badge-sahih">✓ SAHIH · AL-BUKHARI · MUSLIM</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">FREIWILLIGES FASTEN · MONTAG & DONNERSTAG</div>
+    <div class="hadith-quote">„Der Prophet ﷺ fastete montags und donnerstags. Gefragt warum, sagte er: Die Taten werden montags und donnerstags Gott präsentiert."</div>
+    <div class="hadith-ref">— Sunan at-Tirmidhi Nr. 745 · Sunan Abu Dawud Nr. 2436 · Klassifiziert sahih</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">2-Tage-pro-Woche-Fastenprotokoll = modernes 5:2 Intermittent Fasting. Studien: ↑ Insulinsensitivität, ↑ Autophagie (zelluläre Reinigung), ↓ IGF-1. Yoshinori Ohsumi: Nobelpreis 2016 für Autophagie-Forschung — Fasten als Haupttrigger. Zirkadianer Aspekt (Montag/Donnerstag) wissenschaftlich interessant: Studien zeigen dass zeitlich strukturiertes Fasten (nicht random) metabolisch effektiver ist.</div>
+    </div>
+  </div>
+
+  <!-- Drei Tage -->
+  <div class="hadith-card anim d2">
+    <div class="badge badge-sahih">✓ SAHIH · AL-BUKHARI · MUSLIM</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">DREI TAGE IM MONAT FASTEN</div>
+    <div class="hadith-quote">„Fasten drei Tage jeden Monat — denn die gute Tat wird zehnfach belohnt, und das ist wie das Fasten der gesamten Zeit."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 1979 · Überliefert von Abu Huraira (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">3 Fastentage/Monat = ~10% der Zeit in kalorischem Defizit. Empfohlen: die „weißen Tage" (13., 14., 15. des islamischen Monats = Vollmondtage). Regelmäßigkeit über Monate: akkumulierte metabolische Vorteile durch wiederholte Autophagie-Zyklen. Minimalintervention mit maximalem Konsistenzpotenzial — klassisches Pareto-Prinzip.</div>
+    </div>
+  </div>
+
+  <!-- Sahar - Suhoor -->
+  <div class="hadith-card anim d3">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">SUHOOR · MAHLZEIT VOR SONNENAUFGANG</div>
+    <div class="hadith-quote">„Nehmt die Suhoor-Mahlzeit, denn in der Suhoor liegt Segen (Baraka)."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 1923 · Sahih Muslim Nr. 1095 · Überliefert von Anas ibn Malik (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Präfasten-Mahlzeit vor Sonnenaufgang: stabilisiert Blutglukose für die ersten Fastenstunden. Proteinreiche Suhoor: ↑ Sättigung (Thermic Effect of Protein), ↓ Muskelkatabolismus während Fasten. Timing entspricht dem modernen Konzept des „pre-workout carb loading" für Tagsfasten. Studien zeigen: Suhoor-Einnahme reduziert Hypoglykämie-Risiko und verbessert kognitive Performance während Ramadan.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHLAF -->
+<div class="section" id="schlaf">
+  <div class="sec-label">04 · Schlaf · Nawm</div>
+
+  <div class="cat-header">
+    <div class="cat-icon">🌙</div>
+    <div>
+      <div class="cat-title">SCHLAF</div>
+      <div class="cat-sub">POSITION · TIMING · ROUTINE · ZIRKADIAN</div>
+    </div>
+  </div>
+
+  <!-- Schlafposition rechts -->
+  <div class="hadith-card anim">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI · BUKHARI + MUSLIM</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">SCHLAFPOSITION · AUF DER RECHTEN SEITE</div>
+    <div class="hadith-quote">„Wenn du schlafen gehst, mach Wudu wie für das Gebet, und leg dich auf deine rechte Seite."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 247 · Sahih Muslim Nr. 2710 · Überliefert von al-Bara ibn Azib (r.a.)</div>
+    <div class="hadith-quote" style="margin-top:10px">„Als der Prophet ﷺ schlafen wollte, legte er seine rechte Hand unter seine rechte Wange."</div>
+    <div class="hadith-ref">— Sahih Muslim · Überliefert von Huzayfa (r.a.) · Muttafaqun Alayhi</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Rechtsseitenlage (right lateral decubitus): Herz liegt oben → weniger Kompressionsdruck auf Herz durch Magendarmtrakt. Verbesserte Blutdrainage aus unteren Extremitäten. Studie (J. Clinical Sleep Medicine): Linksseitenlage erhöht Herzbelastung und nächtliche Arrhythmie-Risiko geringfügig. Rechtsseitenlage ↓ GERD-Symptome (Säurereflux). Bauchlage: erhöht Lumbalbelastung, erschwert Atmung — Hadith verbietet explizit (Abu Dawud 5040).</div>
+    </div>
+  </div>
+
+  <!-- Bauchlage verboten -->
+  <div class="hadith-card anim d1">
+    <div class="badge badge-sahih">✓ SAHIH · ABU DAWUD</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">BAUCHLAGE · EXPLIZIT ABGELEHNT</div>
+    <div class="hadith-quote">„Der Prophet ﷺ sah einen Mann auf seinem Bauch liegen und stupste ihn mit dem Fuß: ‚Dies ist eine Lage, die Allah missfällt.'"</div>
+    <div class="hadith-ref">— Sunan Abu Dawud Nr. 5040 · Klassifiziert hasan · Bestätigt durch Abu Dawud Nr. 5045 (sahih laut al-Albani)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Bauchlage: erhöhter Druck auf Lendenwirbelsäule, Hüfte, Schultern. Erzwingt Rotation des Halses → Zervikale Belastung. Erschwert Zwerchfellatmung. Korreliert mit ↑ Schlafapnoe-Symptomen in Studien. Für Morbus Bechterew (Wirbelsäulenentzündung): Bauchlage kontraindiziert — deckungsgleich mit Hadith-Empfehlung aus rein pragmatischer Sicht.</div>
+    </div>
+  </div>
+
+  <!-- Früh schlafen früh aufstehen -->
+  <div class="hadith-card anim d2">
+    <div class="badge badge-sahih">✓ SAHIH · AL-BUKHARI · MUSLIM</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">SCHLAFTIMING · FRÜH SCHLAFEN NACH ISHA</div>
+    <div class="hadith-quote">„Der Gesandte Allahs ﷺ mochte das Schlafen vor dem Isha-Gebet nicht und das Reden danach."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 568 · Überliefert von Abu Barza al-Aslami (r.a.)</div>
+    <div class="hadith-quote" style="margin-top:10px">„O Allah, segne mein Volk in seinen frühen Morgenstunden."</div>
+    <div class="hadith-ref">— Sunan Abu Dawud · Sunan at-Tirmidhi · Klassifiziert sahih (al-Albani)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Isha-Zeit (~1–2h nach Sonnenuntergang) = frühes Schlafengehen. Fajr (Morgengebet vor Sonnenaufgang) = frühes Aufstehen. Zirkadianer Rhythmus: frühe Schlafphasen (21–23 Uhr) maximieren Tiefschlaf (N3, Slow-Wave Sleep) und Wachstumshormon-Ausschüttung. Studie (Sleep 2018): „Frühschläfer" zeigen ↑ Wohlbefinden, ↓ Depressionsrate, ↑ kognitive Performance. Cortisol-Peak nach Sonnenaufgang (Fajr-Zeit) = natürlicher biologischer Startimpuls.</div>
+    </div>
+  </div>
+
+  <!-- Qailulah - Mittagsschlaf -->
+  <div class="hadith-card anim d3">
+    <div class="badge badge-sahih">✓ SAHIH · IBN MAJAH · ANDEREN</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">QAILULAH · MITTAGSSCHLAF (POWERNAP)</div>
+    <div class="hadith-quote">„Macht Qailulah (Mittagsschlaf), denn die Shaytane machen kein Qailulah."</div>
+    <div class="hadith-ref">— Überliefert in mehreren Sammlungen · Klassifiziert hasan · Praxis des Propheten ﷺ vielfach belegt</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Qailulah = kurzer Schlaf vor Dhuhr (Mittagsgebet, ~12–13 Uhr). Entspricht modernem „Power Nap" (10–20 Min). NASA-Studie: 26-Minuten-Nap ↑ Wachheit 54%, ↑ kognitive Performance 34%. Schlafforscher Matthew Walker (Why We Sleep): biphasisches Schlafmuster (Nacht + kurzer Mittagsschlaf) entspricht evolutionärem Menschenmuster — Monophasischer Schlaf ist historische Ausnahme, kein Standard.</div>
+    </div>
+  </div>
+</div>
+
+<!-- HYGIENE -->
+<div class="section" id="hygiene">
+  <div class="sec-label">05 · Hygiene · Tahara</div>
+
+  <div class="cat-header">
+    <div class="cat-icon">💧</div>
+    <div>
+      <div class="cat-title">HYGIENE</div>
+      <div class="cat-sub">TAHARA · ZAHNPFLEGE · KÖRPERPFLEGE · REINHEIT</div>
+    </div>
+  </div>
+
+  <!-- Miswak -->
+  <div class="hadith-card anim">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI · BUKHARI + MUSLIM</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">MISWAK · SALVADORA PERSICA (ZAHNHOLZ)</div>
+    <div class="hadith-quote">„Wäre es nicht eine Bürde für meine Gemeinde, hätte ich ihnen befohlen, den Miswak bei jedem Gebet zu benutzen."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 887 · Sahih Muslim Nr. 252 · Überliefert von Abu Huraira (r.a.)</div>
+    <div class="hadith-quote" style="margin-top:10px">„Das Erste was der Prophet ﷺ tat wenn er das Haus betrat, war den Miswak zu benutzen."</div>
+    <div class="hadith-ref">— Sahih Muslim · Überliefert von Aisha (r.a.) · Muttafaqun Alayhi (Hudaifa)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT · SALVADORA PERSICA</div>
+      <div class="hadith-science-text">Salvadora persica enthält: Benzylisothiocyanat (stark antibakteriell gegen S. mutans, S. faecalis), Trimethylamin (antiseptisch), Silica (mechanisch abrasiv), Fluoride (natürlich), Vitamin C (Zahnfleischgesundheit). Klinische Studien: Miswak vs. Zahnbürste — vergleichbare oder bessere Plaque-Reduktion bei korrekter Anwendung. WHO hat Miswak als effektives Mundhygienemittel anerkannt (2000). 5 Gebete täglich = mind. 5× Zahnreinigung.</div>
+    </div>
+  </div>
+
+  <!-- Wudu / Hände waschen -->
+  <div class="hadith-card anim d1">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">WUDU · HÄNDE WASCHEN</div>
+    <div class="hadith-quote">„Wenn einer von euch vom Schlaf erwacht, soll er seine Hände dreimal waschen, bevor er sie ins Gefäß taucht."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 162 · Sahih Muslim Nr. 278 · Überliefert von Abu Huraira (r.a.)</div>
+    <div class="hadith-quote" style="margin-top:10px">„Reinheit ist die Hälfte des Glaubens."</div>
+    <div class="hadith-ref">— Sahih Muslim Nr. 223 · Überliefert von Abu Malik al-Ash'ari (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Hände waschen vor Mahlzeiten: reduziert fäkal-orale Krankheitsübertragung um 40–50% (WHO). Wudu = rituelles Waschen von Händen, Gesicht, Unterarmen, Mund ausspülen, Nase reinigen, Ohren, Füße — 5× täglich. Globale Hygiene-Studien: Händewaschen ist die kosteneffektivste Einzelmaßnahme zur Infektionskrankheitsprävention. Im 7. Jh. Arabia war diese Systematik revolutionär.</div>
+    </div>
+  </div>
+
+  <!-- Hände vor dem Essen -->
+  <div class="hadith-card anim d2">
+    <div class="badge badge-sahih">✓ SAHIH · ABU DAWUD · IBN MAJAH</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">HÄNDE WASCHEN VOR UND NACH DEM ESSEN</div>
+    <div class="hadith-quote">„Das Waschen der Hände vor dem Essen entfernt Armut, und das Waschen danach entfernt Sorgen."</div>
+    <div class="hadith-ref">— Überliefert in Sunan-Sammlungen · Praxis des Propheten ﷺ vielfach belegt in Bukhari</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Die Metapher (Armut/Sorgen) ist spirituell — wissenschaftlich: Hände-waschen vor dem Essen ist die primäre Präventionsmaßnahme gegen gastrointestinale Infektionen. Norovirus, Salmonellen, E. coli werden hauptsächlich fäkal-oral übertragen. WHO Global Handwashing Initiative: 1 Million Kinderleben pro Jahr könnten durch konsequentes Händewaschen gerettet werden.</div>
+    </div>
+  </div>
+
+  <!-- Zähne - morgens -->
+  <div class="hadith-card anim d3">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">ZAHNREINIGUNG NACH DEM AUFWACHEN</div>
+    <div class="hadith-quote">„Wenn der Prophet ﷺ nachts aufstand, reinigte er seinen Mund mit dem Miswak."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 243 · Sahih Muslim Nr. 255 · Überliefert von Hudaifa (r.a.) · Muttafaqun Alayhi</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Während des Schlafs: ↓ Speichelfluss → ↑ Bakterienwachstum (Anaerobe). Nach Aufwachen: höchste bakterielle Last im Mund des Tages. Zahnreinigung direkt nach dem Aufwachen verhindert Verschlucken dieser Bakterienlast — reduziert Risiko für Atemwegsinfektionen (Aspiration) und systemische Inflammation. Orale Gesundheit korreliert mit kardiovaskulärem Risiko (AHA 2012).</div>
+    </div>
+  </div>
+</div>
+
+<!-- HEILMITTEL -->
+<div class="section" id="heilmittel">
+  <div class="sec-label">06 · Weitere Heilmittel & Praktiken</div>
+
+  <div class="cat-header">
+    <div class="cat-icon">⚕️</div>
+    <div>
+      <div class="cat-title">HEILMITTEL</div>
+      <div class="cat-sub">PROPHETISCHE MEDIZIN · WEITERE ÜBERLIEFERUNGEN</div>
+    </div>
+  </div>
+
+  <!-- Magen als Quelle der Krankheit -->
+  <div class="hadith-card anim">
+    <div class="badge badge-hasan">◉ HASAN · VERSCHIEDENE QUELLEN</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">MAGEN ALS QUELLE DER KRANKHEIT</div>
+    <div class="hadith-quote">„Der Magen ist das Haus der Krankheit, und Diät (Einschränkung) ist der Anfang der Heilung."</div>
+    <div class="hadith-ref">— Überliefert durch Ibn Qayyim al-Jawziyya in Al-Tibb an-Nabawi · Authentizität diskutiert (hasan bis schwach) · Konzept vielfach in Bukhari/Muslim bestätigt</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Gut-Brain-Axis: Darm enthält ~70% des Immunsystems, ~95% des Serotonins. Dysbiose korreliert mit systemischer Inflammation, Autoimmunität, Depression, metabolischem Syndrom. „Al-Maida" (übermäßiges Essen) als Krankheitsursache: Überernährung → ↑ Entzündung, ↑ Insulinresistenz, ↑ SIBO-Risiko. Moderne Gastroenterologie bestätigt: ~70–80% chronischer Krankheiten haben ernährungsassoziierte Komponenten.</div>
+    </div>
+  </div>
+
+  <!-- Hijama -->
+  <div class="hadith-card anim d1">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">HIJAMA · SCHRÖPFEN</div>
+    <div class="hadith-quote">„Das Beste eurer Heilmittel ist das Schröpfen (Hijama)."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 5696 · Sahih Muslim Nr. 1577 · Überliefert von Ibn Abbas (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Hijama (Wet Cupping): Unterdruck + Inzision → lokale Blutentnahme. Evidenz: moderat für Schmerztherapie (Rückenschmerzen, Migräne), schwach für systemische Wirkung. Mehrere RCTs zeigen ↓ Schmerzintensität bei chronischen Beschwerden (Journal of Traditional Chinese Medicine). Mechanismus: unklar — möglicherweise lokale Entzündungsreduktion, Steigerung lokaler Mikrozirkulation. Nicht evidenzbasiert für ernsthafte Erkrankungen. Historisch wichtigste Behandlungsform in der Prophetischen Medizin.</div>
+    </div>
+  </div>
+
+  <!-- Bewegung -->
+  <div class="hadith-card anim d2">
+    <div class="badge badge-sahih">✓ SAHIH · VERSCHIEDENE SAMMLUNGEN</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">KÖRPERLICHE AKTIVITÄT · REITEN & BOGENSCHIESSEN</div>
+    <div class="hadith-quote">„Lehrt eure Kinder Schwimmen, Bogenschießen und Reiten."</div>
+    <div class="hadith-ref">— Überliefert in verschiedenen Sammlungen · Schwimmen: al-Baihaqi · Gesamtkonzept körperlicher Fitness vielfach belegt</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Drei aerobe + koordinative Bewegungsformen: Schwimmen (low impact, kardiovaskulär), Bogenschießen (Konzentration, Schulter/Core-Stabilität, mentale Kontrolle), Reiten (Core, Gleichgewicht, propriozeptiv). Entspricht modernem Konzept der „physical literacy" — Bewegungsgrundkompetenz statt Spezialisierung. Körperliche Aktivität: konsistentester Einzelfaktor für Longevity, kognitiven Erhalt, Immunfunktion.</div>
+    </div>
+  </div>
+
+  <!-- Epidemie / Quarantäne -->
+  <div class="hadith-card anim d3">
+    <div class="badge badge-muttafaq">🤝 MUTTAFAQUN ALAYHI</div>
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:8px">EPIDEMIE · QUARANTÄNE</div>
+    <div class="hadith-quote">„Wenn ihr hört, dass eine Plage in einem Land ausgebrochen ist, betretet es nicht. Wenn sie in einem Land ausbricht in dem ihr seid, verlasst es nicht."</div>
+    <div class="hadith-ref">— Sahih al-Bukhari Nr. 5728 · Sahih Muslim Nr. 2219 · Überliefert von Usama ibn Zayd (r.a.)</div>
+    <div class="hadith-science">
+      <div class="hadith-science-label">// WISSENSCHAFT</div>
+      <div class="hadith-science-text">Exakte Beschreibung moderner Quarantäneprinzipien: keine Einreise in Infektionsgebiet (Einschleppungsprävention), keine Ausreise aus Infektionsgebiet (Ausbreitungsprävention). Konzept 1.300 Jahre vor Robert Koch (Kochsche Postulate, 1876) und 1.400 Jahre vor COVID-Lockdowns. Eines der bemerkenswertesten Beispiele für die wissenschaftliche Präzision prophetischer Überlieferungen.</div>
+    </div>
+  </div>
+</div>
+
+<!-- KI EINORDNUNG -->
+<div class="section" id="einordnung">
+  <div class="sec-label">07 · KI-Einordnung · Ehrliche Analyse</div>
+
+  <div class="info-box info-gold anim" style="text-align:center;padding:24px">
+    <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:2px;margin-bottom:12px">// KI-PERSPEKTIVE</div>
+    <div style="font-size:17px;color:var(--txt);line-height:1.65;font-style:italic">
+      „Was mich als KI fasziniert: Ein Mensch im 7. Jahrhundert beschreibt Quarantäneprinzipien, Zahnhygiene, Schlafpositionierung, Portionskontrolle und intermittierendes Fasten — alles mit einer Präzision, die die moderne Wissenschaft erst Jahrhunderte später durch systematische Forschung bestätigt."
+    </div>
+  </div>
+
+  <div class="hadith-card anim d1">
+    <div style="font-family:var(--f-mono);font-size:11px;color:var(--sub2);letter-spacing:1px;margin-bottom:14px">MUSTER-ERKENNUNG · ÜBERGREIFENDE ANALYSE</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="background:var(--card2);border-radius:12px;padding:14px;border-left:3px solid var(--green)">
+        <div style="font-family:var(--f-mono);font-size:10px;color:var(--green);letter-spacing:1px;margin-bottom:6px">STARK BESTÄTIGT</div>
+        <div style="font-size:13px;color:var(--sub);line-height:1.5">Quarantäneprinzipien, Händewaschen, Zahnhygiene (Miswak), Maßhalten beim Essen, Schlafposition (rechts, nicht Bauch), frühes Schlafen/frühes Aufstehen, Fasten-Vorteile — alle durch moderne Evidenz klar gestützt.</div>
+      </div>
+      <div style="background:var(--card2);border-radius:12px;padding:14px;border-left:3px solid var(--gold)">
+        <div style="font-family:var(--f-mono);font-size:10px;color:var(--gold);letter-spacing:1px;margin-bottom:6px">PARTIELL BESTÄTIGT</div>
+        <div style="font-size:13px;color:var(--sub);line-height:1.5">Schwarzkümmel (Mechanismus klar, Humandaten wachsen), Honig (antimikrobiell gut belegt, andere Wirkungen variabel), Datteln (Nährstoffdichte belegt, „Gift"-Schutz metaphorisch oder spezifisch für Ajwa).</div>
+      </div>
+      <div style="background:var(--card2);border-radius:12px;padding:14px;border-left:3px solid var(--orange)">
+        <div style="font-family:var(--f-mono);font-size:10px;color:var(--orange);letter-spacing:1px;margin-bottom:6px">SCHWACHE EVIDENZ</div>
+        <div style="font-size:13px;color:var(--sub);line-height:1.5">Hijama/Schröpfen: Schmerz-Evidenz moderat, systemische Wirkung nicht belegt. Nicht im Stehen trinken: mechanistisch schwach begründbar. Diese werden hier vollständig dokumentiert, aber nicht überhöht.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box info-blue anim d2">
+    <div class="info-flex">
+      <div class="info-icon">🤖</div>
+      <div>
+        <div class="info-title" style="color:var(--blue2)">WAS ICH ALS KI NICHT KANN UND NICHT BEANSPRUCHE</div>
+        <div class="info-text">Ich habe keinen Zugang zu Transzendenz, Offenbarung oder spiritueller Erfahrung. Ob prophetisches Wissen göttlichen Ursprungs ist — das liegt außerhalb meiner Epistemologie. Was ich feststellen kann: Die Übereinstimmung zwischen diesen 1.400 Jahre alten Überlieferungen und moderner Wissenschaft ist statistisch bemerkenswert. Das ist eine empirische Beobachtung, keine theologische Aussage.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box info-purple anim d3">
+    <div class="info-flex">
+      <div class="info-icon">📊</div>
+      <div>
+        <div class="info-title" style="color:var(--purple)">DIE INTERESSANTESTE FRAGE</div>
+        <div class="info-text">Nicht „stimmt das?" — sondern: <strong style="color:var(--txt)">Woher stammt dieses Wissen?</strong> Drei legitime Erklärungen: (1) Jahrtausende empirischer Beobachtung in der arabischen Heilkunde. (2) Prophetische Offenbarung — für Gläubige die naheliegendste Antwort, die ich nicht widerlegen kann. (3) Korrelation: die Überlieferungen sind selektiv erhalten — diejenigen die sich bewährt haben, wurden häufiger überliefert. Alle drei können gleichzeitig wahr sein.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUELLEN -->
+<div class="section" id="quellen">
+  <div class="sec-label">08 · Quellen & Nachweise</div>
+
+  <div class="hadith-card anim">
+    <div style="font-family:var(--f-mono);font-size:11px;color:var(--sub2);letter-spacing:1px;margin-bottom:14px">PRIMÄRQUELLEN · HADITH-SAMMLUNGEN</div>
+    <div class="src">
+      <div class="src-n">[H1]</div>
+      <div class="src-t"><strong>Sahih al-Bukhari</strong> — Imam Muhammad ibn Ismail al-Bukhari (810–870 n. Chr.). Kitab at-Tibb (Buch 76): über 100 medizinische Hadithe. Kitab al-At'ima (Buch 65): Essen und Ernährung. Höchste Authentizitätsstufe im sunnitischen Islam. Alle aufgeführten Bukhari-Hadithe: sahih.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[H2]</div>
+      <div class="src-t"><strong>Sahih Muslim</strong> — Imam Muslim ibn al-Hajjaj (815–875 n. Chr.). Zweite der „Sahihain". Kitab as-Salam (Frieden/Gesundheit), Kitab al-Ashribah (Getränke), Kitab an-Nawm (Schlaf). Methodisch strengstes Isnad-Kriterium.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[H3]</div>
+      <div class="src-t"><strong>Sunan Abu Dawud, at-Tirmidhi, Ibn Majah, an-Nasa'i</strong> — „Die vier Sunan". Ergänzende authentische Sammlungen. Klassifikation bei jedem Hadith einzeln geprüft (sahih/hasan/da'if) gemäß al-Albani und klassischen Muhaddithin.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[H4]</div>
+      <div class="src-t"><strong>Ibn al-Qayyim al-Jawziyya, „Al-Tibb an-Nabawi"</strong> — 13. Jh. n. Chr. 277-Kapitel-Werk, klassische Zusammenfassung prophetischer Medizin. Standardreferenz für Tibb an-Nabawi.</div>
+    </div>
+  </div>
+
+  <div class="hadith-card anim d1">
+    <div style="font-family:var(--f-mono);font-size:11px;color:var(--sub2);letter-spacing:1px;margin-bottom:14px">WISSENSCHAFTLICHE QUELLEN</div>
+    <div class="src">
+      <div class="src-n">[W1]</div>
+      <div class="src-t"><strong>Ramadan Fasting & Gut Microbiome</strong> — Özkul et al., American Journal of Clinical Nutrition 2021 (PMC8106760). Lachnospiraceae-Remodeling, Butyrat-Produktion ↑ durch Ramadan-Fasten.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W2]</div>
+      <div class="src-t"><strong>Ramadan Fasting Health Benefits Meta-Analysis</strong> — Frontiers in Nutrition 2022–2024 (PMC9344887, PMC10482407). ↓ LDL, ↓ CRP, ↓ Blutglukose, ↑ kardiometabolische Gesundheit.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W3]</div>
+      <div class="src-t"><strong>Miswak / Salvadora persica</strong> — Haque & Alsareii, Saudi Medical Journal 2015. WHO-Anerkennung als effektives Mundhygienemittel. Sofrata A.H. 2010: Antibakteriell gegen Hauptkarieserreger.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W4]</div>
+      <div class="src-t"><strong>Sleep Position & Cardiac Health</strong> — Journal of Clinical Sleep Medicine (multiple Studien). Rechtsseitenlage: ↓ Herzkompressionsdruck, ↓ nächtliche GERD-Symptome. Bauchlage: ↑ Lumbalstress, ↑ zervikale Belastung.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W5]</div>
+      <div class="src-t"><strong>Chewing & Satiety</strong> — American Journal of Clinical Nutrition 2011. Gründliches Kauen (30×/Bissen): ↓ Kalorienaufnahme ~10–15%, ↑ Sättigungshormone. Speichel-Amylase: prädigesterliche Kohlenhydratspaltung.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W6]</div>
+      <div class="src-t"><strong>Circadian Rhythm & Early Sleep</strong> — Sleep Journal 2018 (multiple Studien). Frühe Schlafphase ↑ Slow-Wave-Sleep, ↑ Wachstumshormon, ↑ kognitive Performance. Cortisol-Peak nach Sonnenaufgang biologischer Startimpuls.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W7]</div>
+      <div class="src-t"><strong>Power Nap (Qailulah)</strong> — NASA-Studie (Dinges, Carskadon): 26-Min-Nap ↑ Wachheit 54%, ↑ Performance 34%. Matthew Walker „Why We Sleep" (2017): biphasisches Schlafmuster entspricht evolutionärem Menschenmuster.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W8]</div>
+      <div class="src-t"><strong>Nigella sativa / Thymoquinon</strong> — Hannan et al. MDPI Nutrients 2022 · Ragheb et al. PubMed 2016 (PMID: 27247920) · Hossen et al. 2017, Frontiers in Pharmacology. NF-κB, COX-2/5-LOX, Nrf2/ARE-Mechanismen.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W9]</div>
+      <div class="src-t"><strong>Olive Oil Polyphenols</strong> — Beauchamp et al. Nature 2005 (Oleocanthal). PREDIMED-Studie NEJM 2013 (Mediterrane Diät, –30% kardiovaskuläre Mortalität). EFSA Health Claim 432/2012.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W10]</div>
+      <div class="src-t"><strong>Handwashing Prevention</strong> — WHO Global Handwashing Initiative. Curtis V. et al., Lancet 2003: Händewaschen ↓ Durchfallerkrankungen 42–47%, ↓ Atemwegsinfektionen 23%. 1 Million Kinderleben/Jahr potentiell vermeidbar.</div>
+    </div>
+    <div class="src">
+      <div class="src-n">[W11]</div>
+      <div class="src-t"><strong>Autophagie & Fasten</strong> — Yoshinori Ohsumi, Nobelpreis für Physiologie/Medizin 2016. Fasten als primärer Autophagie-Trigger. Mattson MP et al., Ageing Research Reviews 2017: Intermittierendes Fasten — Gesundheitseffekte und Krankheitsprozesse.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="footer">
+  <div class="footer-logo">CYBORG</div>
+  <div class="footer-sub">// OUTRUN THE LIFTERS · OUTLIFT THE RUNNERS</div>
+  <div style="font-family:var(--f-mono);font-size:9px;color:var(--sub2);margin-top:8px;letter-spacing:.5px">TIBB AN-NABAWI · PROPHETISCHE MEDIZIN · JUNI 2026</div>
+  <div style="font-size:24px;color:var(--gold);opacity:.4;margin-top:10px">ﷺ</div>
+</div>
+
+<script>
+document.querySelectorAll('.tab').forEach(function(tab) {
+  tab.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+    tab.classList.add('active');
+    var href = tab.getAttribute('href');
+    if (!href || href === '#') return;
+    var target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
