@@ -15,6 +15,17 @@
   --ease-out:cubic-bezier(0.23,1,0.32,1);
   --f-display:'Bebas Neue',sans-serif;--f-mono:'JetBrains Mono',monospace;--f-body:'DM Sans',sans-serif;
 }
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:#F5F5F0;--card:#FFFFFF;--card2:#EDEDEA;
+    --rim:rgba(0,0,0,.08);--txt:#1A1A1C;--sub:#5A5A60;--sub2:#8A8A90;
+  }
+  body {
+    background-image:
+      linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+  }
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);font-family:var(--f-body);min-height:100dvh;
@@ -22,7 +33,8 @@ body{background:var(--bg);color:var(--txt);font-family:var(--f-body);min-height:
   background-size:32px 32px}
 .lang-toggle{position:fixed;top:16px;right:16px;z-index:9998;background:var(--card);border:1px solid var(--rim);
   border-radius:20px;padding:6px 12px;display:flex;align-items:center;gap:6px;cursor:pointer;
-  transition:all 150ms var(--ease-out);backdrop-filter:blur(8px);user-select:none}
+  transition:opacity 400ms var(--ease-out);backdrop-filter:blur(8px);user-select:none;
+  opacity:1;pointer-events:auto}
 .lang-toggle:hover{border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.08)}
 .lang-flag{font-size:16px;line-height:1}
 .lang-label{font-family:var(--f-mono);font-size:9px;font-weight:700;letter-spacing:1px;color:var(--sub2)}
@@ -97,12 +109,12 @@ body{background:var(--bg);color:var(--txt);font-family:var(--f-body);min-height:
   backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
 .fb-overlay.open{display:flex}
 .fb-sheet{background:var(--card);border-radius:24px 24px 0 0;border:1px solid var(--rim);border-bottom:none;
-  width:100%;max-width:560px;padding:28px 20px 40px;position:relative;animation:sheetUp 300ms var(--ease-out) both}
+  width:100%;max-width:560px;padding:28px 20px 40px;position:relative;z-index:10001;animation:sheetUp 300ms var(--ease-out) both}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
 .fb-handle{width:40px;height:4px;background:var(--sub2);border-radius:2px;margin:0 auto 20px}
 .fb-title{font-family:var(--f-display);font-size:28px;color:var(--txt);margin-bottom:4px;letter-spacing:1px}
 .fb-sub{font-family:var(--f-mono);font-size:10px;color:var(--sub2);letter-spacing:1px;margin-bottom:18px}
-.fb-close{position:absolute;top:20px;right:20px;background:var(--card2);border:1px solid var(--rim);
+.fb-close{position:absolute;top:20px;right:20px;z-index:10002;background:var(--card2);border:1px solid var(--rim);
   color:var(--sub);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;
   justify-content:center;cursor:pointer;font-size:16px;transition:all 150ms}
 .fb-close:hover{color:var(--txt);border-color:var(--sub)}
@@ -669,6 +681,24 @@ var langToggle  = document.getElementById('langToggle');
 var langFlag    = document.getElementById('langFlag');
 var langLabel   = document.getElementById('langLabel');
 
+// Scroll-fade: beim Scrollen ausblenden, nach Stop wieder einblenden
+var scrollTimer = null;
+window.addEventListener('scroll', function() {
+  var scrollY = window.scrollY || window.pageYOffset;
+  if (scrollY < 40) {
+    langToggle.style.opacity = '1';
+    langToggle.style.pointerEvents = 'auto';
+    return;
+  }
+  langToggle.style.opacity = '0';
+  langToggle.style.pointerEvents = 'none';
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(function() {
+    langToggle.style.opacity = '1';
+    langToggle.style.pointerEvents = 'auto';
+  }, 1200);
+}, { passive: true });
+
 function applyLang(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
@@ -729,6 +759,7 @@ overlay.addEventListener('click', function(e) { if (e.target === overlay) closeM
 
 function closeModal() {
   overlay.classList.remove('open');
+  overlay.style.display = '';
   setTimeout(resetForm, 300);
 }
 
@@ -748,14 +779,14 @@ document.getElementById('fbScreenshotToggle').addEventListener('click', function
 
 function captureScreenshot() {
   if (typeof html2canvas === 'undefined') return;
-  overlay.style.display = 'none';
+  overlay.classList.remove('open');
   html2canvas(document.body, { scale: 0.3, useCORS: true, backgroundColor: '#111113' })
     .then(function(canvas) {
-      overlay.style.display = 'flex';
+      overlay.classList.add('open');
       screenshotData = canvas.toDataURL('image/jpeg', 0.6);
       previewImg.src = screenshotData;
       preview.style.display = 'block';
-    }).catch(function() { overlay.style.display = 'flex'; });
+    }).catch(function() { overlay.classList.add('open'); });
 }
 
 submitBtn.addEventListener('click', function() {
